@@ -1,0 +1,43 @@
+<!-- dashboard.ejs -->
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Dashboard</title>
+    <link rel="stylesheet" href="/index.css">
+  </head>
+  <body>
+     <!-- changing -->
+     <h3>upload you excel file in xlsx format</h3>
+     <% if (session.message) { %>
+     <p><%= session.message %></p>
+     <% session.message = null; %>
+     <% } %>
+     <form action="/upload" method="post" enctype="multipart/form-data">
+       <input type="file" name="file" accept=".xls,.xlsx" required />
+       <button type="submit">Upload</button>
+     </form>
+     <!-- changing end -->
+    <% if (session.message) { %>
+    <p><%= session.message %></p>
+    <% } %>
+    <h1>Dashboard</h1>
+    <table class="data-table">
+      <thead>
+        <tr>
+          <% for (let i = 0; i < columnNames.length; i++) { %>
+          <th><%= columnNames[i] %></th>
+          <% } %>
+        </tr>
+      </thead>
+      <tbody>
+        <% for (let i = 0; i < data.length; i++) { %>
+        <tr>
+          <% for (let j = 0; j < columnNames.length; j++) { %>
+          <td><%= data[i][columnNames[j]] %></td>
+          <% } %>
+        </tr>
+        <% } %>
+      </tbody>
+    </table>    
+  </body>
+</html>
